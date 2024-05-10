@@ -1,5 +1,130 @@
-template-repository (1.0-1) unstable; urgency=medium
+civetweb (1.16+dfsg-1) unstable; urgency=medium
 
-  * Initial release
+  * Team upload.
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+  [ Sebastien Jodogne ]
+  * Update symbols file (Closes: #1037603)
+
+  [ Andreas Tille ]
+  * New upstream version
+  * Standards-Version: 4.6.2 (routine-update)
+  * Remove constraints unnecessary since bullseye (oldstable):
+    + Build-Depends: Drop versioned constraint on libjs-jquery (>=
+      3.5.1+dfsg+~3.5.5-7).
+  * Install pkgconfig files
+  * Update symbols
+
+  [ Étienne Mollier ]
+  * d/libcivetweb1.symbols.amd64: update symbol table some more.  Changes
+    include the marking of a couple of symbols leaked by g++ as optional.
+  * d/rules: move pkgconfig files.  Their content is architecture specific, so
+    they must relocate to an architecture specific directory.
+
+ -- Étienne Mollier <emollier@debian.org>  Sun, 23 Jul 2023 19:30:39 +0200
+
+civetweb (1.15+dfsg-4) unstable; urgency=medium
+
+  * Fix watch file
+  * Standards-Version: 4.6.1 (routine-update)
+
+ -- Andreas Tille <tille@debian.org>  Tue, 01 Nov 2022 20:04:28 +0100
+
+civetweb (1.15+dfsg-3) unstable; urgency=medium
+
+  * Provide symbols for amd64 architecture only to reduce burden of
+    maintenance
+
+ -- Andreas Tille <tille@debian.org>  Tue, 07 Dec 2021 16:25:40 +0100
+
+civetweb (1.15+dfsg-2) unstable; urgency=medium
+
+  * Add websockets support
+    Closes: #989287
+  * For whatever reason dh_makeshlibs adds extra symbols including Debian
+    revision.  Providing the result from that process as new symbols file
+    after stripping revision
+
+ -- Andreas Tille <tille@debian.org>  Tue, 07 Dec 2021 15:45:21 +0100
+
+civetweb (1.15+dfsg-1) unstable; urgency=medium
+
+  * Fix watchfile to detect new versions on github
+  * New upstream version
+  * Standards-Version: 4.6.0 (routine-update)
+  * Remove Debian revision from symbols
+
+ -- Andreas Tille <tille@debian.org>  Wed, 13 Oct 2021 09:36:08 +0200
+
+civetweb (1.13+dfsg-5) unstable; urgency=medium
+
+  * Team Upload.
+  * Build-Depend on libjs-jquery and use
+    minified file provided in this binary
+    (Closes: #980674)
+
+ -- Nilesh Patra <npatra974@gmail.com>  Thu, 21 Jan 2021 20:00:38 +0530
+
+civetweb (1.13+dfsg-4) unstable; urgency=medium
+
+  [ Timo Röhling ]
+  * build C++ API as well
+    Closes: #974775
+
+  [ Andreas Tille ]
+  * Standards-Version: 4.5.1 (routine-update)
+
+ -- Andreas Tille <tille@debian.org>  Sat, 05 Dec 2020 15:47:00 +0100
+
+civetweb (1.13+dfsg-3) unstable; urgency=medium
+
+  * Fix SOVERSION of the shared library to create "libcivetweb.so.1"
+
+ -- Sebastien Jodogne <s.jodogne@gmail.com>  Tue, 03 Nov 2020 15:42:33 +0100
+
+civetweb (1.13+dfsg-2) unstable; urgency=medium
+
+  * Upgraded "debian/patches/webdav-uploads" for civetweb 1.13
+
+ -- Sebastien Jodogne <s.jodogne@gmail.com>  Tue, 27 Oct 2020 13:40:23 +0100
+
+civetweb (1.13+dfsg-1) unstable; urgency=medium
+
+  * New upstream version
+  * Add symbols file
+
+ -- Andreas Tille <tille@debian.org>  Tue, 27 Oct 2020 09:06:32 +0100
+
+civetweb (1.12+dfsg-5) unstable; urgency=medium
+
+  * Patch to support uploads in WebDAV
+
+ -- Sebastien Jodogne <s.jodogne@gmail.com>  Fri, 16 Oct 2020 13:40:00 +0200
+
+civetweb (1.12+dfsg-4) unstable; urgency=medium
+
+  * Fix my forgetting of tagging Helmut's issue as closed (Closes: #970544)
+
+ -- Sebastien Jodogne <s.jodogne@gmail.com>  Sat, 19 Sep 2020 11:51:51 +0200
+
+civetweb (1.12+dfsg-3) unstable; urgency=medium
+
+  [ Helmut Grohne <helmut@subdivi.de> ]
+  * Don't use arch-dependent paths in *.install files
+
+  [ Sebastien Jodogne ]
+  * Add function to improve the performance of Orthanc on keep-alive
+
+ -- Sebastien Jodogne <s.jodogne@gmail.com>  Sat, 19 Sep 2020 10:52:31 +0200
+
+civetweb (1.12+dfsg-2) unstable; urgency=medium
+
+  * Source-only upload
+  * Remove trailing whitespace in debian/copyright (routine-update)
+
+ -- Andreas Tille <tille@debian.org>  Thu, 17 Sep 2020 09:27:48 +0200
+
+civetweb (1.12+dfsg-1) unstable; urgency=medium
+
+  * Initial release (Closes: #970358)
+
+ -- Andreas Tille <tille@debian.org>  Tue, 15 Sep 2020 14:20:35 +0200

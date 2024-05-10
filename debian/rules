@@ -1,4 +1,36 @@
 #!/usr/bin/make -f
 
+# DH_VERBOSE := 1
+export LC_ALL=C.UTF-8
+
+export DEB_BUILD_MAINT_OPTIONS=hardening=+all reproducible=+all future=+lfs
+
+# "CIVETWEB_SOVERSION" must match the suffix of the Debian package
+# (i.e. "libcivetweb1" => "1")
+CMAKE_EXTRA_FLAGS += \
+        -DCMAKE_BUILD_TYPE=None \
+        -DCIVETWEB_BUILD_TESTING=OFF \
+        -DCIVETWEB_SOVERSION=1 \
+	-DCIVETWEB_ENABLE_CXX=ON \
+        -DBUILD_SHARED_LIBS=ON \
+        -DCIVETWEB_ENABLE_WEBSOCKETS=ON
+
 %:
-	dh $@
+	dh $@ --buildsystem=cmake
+
+override_dh_auto_configure:
+	dh_auto_configure -- $(CMAKE_EXTRA_FLAGS)
+
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	cp -a /usr/share/javascript/jquery/jquery.min.js test/ajax/jquery.js
+	dh_auto_test
+endif
+
+CIVETWEB_DEV_DIR = $(CURDIR)/debian/libcivetweb-dev
+execute_after_dh_install:
+	# Fix pkg-config-multi-arch-wrong-dir: pkgconfig files contain
+	# architecture specific information, so must be installed in an
+	# architecture specific location.
+	mv -v $(CIVETWEB_DEV_DIR)/usr/share/pkgconfig \
+		$(CIVETWEB_DEV_DIR)/usr/lib/$(DEB_HOST_MULTIARCH)/

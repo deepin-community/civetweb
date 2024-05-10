@@ -1,15 +1,73 @@
-Source: template-repository
-Section: unknown
+Source: civetweb
+Maintainer: Debian Med Packaging Team <debian-med-packaging@lists.alioth.debian.org>
+Uploaders: Andreas Tille <tille@debian.org>,
+           Sebastien Jodogne <s.jodogne@gmail.com>
+Section: web
 Priority: optional
-Maintainer: Tsic404 <liuheng@deepin.org>
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Homepage: https://github.com/deepin-community/template-repository
-#Vcs-Browser: https://salsa.debian.org/debian/deepin-community-template-repository
-#Vcs-Git: https://salsa.debian.org/debian/deepin-community-template-repository.git
+Build-Depends: debhelper-compat (= 13),
+               cmake,
+               libjs-jquery
+Standards-Version: 4.6.2
+Vcs-Browser: https://salsa.debian.org/med-team/civetweb
+Vcs-Git: https://salsa.debian.org/med-team/civetweb.git
+Homepage: https://github.com/civetweb/civetweb/
+Rules-Requires-Root: no
 
-Package: template-repository
+Package: civetweb
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Depends: libcivetweb1 (= ${binary:Version}),
+         ${shlibs:Depends},
+         ${misc:Depends}
+Description: embeddable web server with optional CGI, SSL and Lua support
+ CivetWeb is an easy to use, powerful, C (C/C++) embeddable web server
+ with optional CGI, SSL and Lua support. CivetWeb has a MIT license so
+ you can innovate without restrictions.
+ .
+ CivetWeb can be used by developers as a library, to add web server
+ functionality to an existing application.
+ .
+ It can also be used by end users as a stand-alone web server running on
+ a Windows or Linux PC. It is available as single executable, no
+ installation is required.
+
+Package: libcivetweb1
+Architecture: any
+Section: libs
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Multi-Arch: same
+Description: embeddable web server with optional CGI, SSL and Lua support (lib)
+ CivetWeb is an easy to use, powerful, C (C/C++) embeddable web server
+ with optional CGI, SSL and Lua support. CivetWeb has a MIT license so
+ you can innovate without restrictions.
+ .
+ CivetWeb can be used by developers as a library, to add web server
+ functionality to an existing application.
+ .
+ It can also be used by end users as a stand-alone web server running on
+ a Windows or Linux PC. It is available as single executable, no
+ installation is required.
+ .
+ This package contains the shared library for civetweb.
+
+Package: libcivetweb-dev
+Architecture: any
+Section: libdevel
+Depends: libcivetweb1 (= ${binary:Version}),
+         ${shlibs:Depends},
+         ${misc:Depends}
+Multi-Arch: same
+Description: embeddable web server with optional CGI, SSL and Lua support (devel)
+ CivetWeb is an easy to use, powerful, C (C/C++) embeddable web server
+ with optional CGI, SSL and Lua support. CivetWeb has a MIT license so
+ you can innovate without restrictions.
+ .
+ CivetWeb can be used by developers as a library, to add web server
+ functionality to an existing application.
+ .
+ It can also be used by end users as a stand-alone web server running on
+ a Windows or Linux PC. It is available as single executable, no
+ installation is required.
+ .
+ This package contains the header file for developing applications using
+ civetweb.

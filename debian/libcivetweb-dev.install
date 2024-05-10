@@ -1,0 +1,4 @@
+usr/lib/*/libcivetweb*.so
+usr/include
+usr/lib/*/cmake
+usr/share/pkgconfig
