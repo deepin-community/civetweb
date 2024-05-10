@@ -1,0 +1,34 @@
+Description: Configuration option to set the SOVERSION of the shared library
+Author: Sebastien Jodogne <s.jodogne@orthanc-labs.com>
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -37,6 +37,7 @@ include(DetermineTargetArchitecture)
+ include(CMakeDependentOption)
+ 
+ set(CIVETWEB_VERSION "1.15.0" CACHE STRING "The version of the civetweb library")
++set(CIVETWEB_SOVERSION "1" CACHE STRING "The SOVERSION of the civetweb library")
+ string(REGEX MATCH "([0-9]+)\\.([0-9]+)\\.([0-9]+)" CIVETWEB_VERSION_MATCH "${CIVETWEB_VERSION}")
+ if ("${CIVETWEB_VERSION_MATCH}" STREQUAL "")
+   message(FATAL_ERROR "Must specify a semantic version: major.minor.patch")
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -8,7 +8,7 @@ set_target_properties(civetweb-c-library
+   OUTPUT_NAME "civetweb"
+   EXPORT_NAME "civetweb"
+   VERSION ${CIVETWEB_VERSION}
+-  SOVERSION ${CIVETWEB_VERSION}
++  SOVERSION ${CIVETWEB_SOVERSION}
+ )
+ if (BUILD_SHARED_LIBS)
+   target_compile_definitions(civetweb-c-library PRIVATE CIVETWEB_DLL_EXPORTS INTERFACE CIVETWEB_DLL_IMPORTS)
+@@ -302,7 +302,7 @@ if (CIVETWEB_ENABLE_CXX)
+     EXPORT_NAME "civetweb-cpp"
+     OUTPUT_NAME "civetweb-cpp"
+     VERSION ${CIVETWEB_VERSION}
+-    SOVERSION ${CIVETWEB_VERSION}
++    SOVERSION ${CIVETWEB_SOVERSION}
+   )
+   if (BUILD_SHARED_LIBS)
+     target_compile_definitions(civetweb-cpp PRIVATE CIVETWEB_CXX_DLL_EXPORTS INTERFACE CIVETWEB_CXX_DLL_IMPORTS)

@@ -1,0 +1,43 @@
+Description: Introduce function for performance of keep-alive and to allow WebDAV uploads
+Origin: https://hg.orthanc-server.com/orthanc/file/default/OrthancFramework/Resources/Patches/civetweb-1.13.patch
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/include/civetweb.h
++++ b/include/civetweb.h
+@@ -1705,6 +1705,9 @@ CIVETWEB_API int mg_start_domain2(struct
+                                   struct mg_error_data *error);
+ 
+ 
++// Added by SJ
++CIVETWEB_API void mg_disable_keep_alive(struct mg_connection *conn);
++
+ #ifdef __cplusplus
+ }
+ #endif /* __cplusplus */
+--- a/src/civetweb.c
++++ b/src/civetweb.c
+@@ -10540,6 +10540,11 @@ static const struct mg_http_method_info
+     /* + MicroSoft extensions
+      * https://msdn.microsoft.com/en-us/library/aa142917.aspx */
+ 
++    /* Added by SJ, for write access to WebDAV on Windows >= 7 */
++    {"LOCK", 1, 1, 0, 0, 0},
++    {"UNLOCK", 1, 0, 0, 0, 0},
++    {"PROPPATCH", 1, 1, 0, 0, 0},
++    
+     /* REPORT method (RFC 3253) */
+     {"REPORT", 1, 1, 1, 1, 1},
+     /* REPORT method only allowed for CGI/Lua/LSP and callbacks. */
+@@ -21472,4 +21477,12 @@ mg_exit_library(void)
+ }
+ 
+ 
++// Added by SJ
++void mg_disable_keep_alive(struct mg_connection *conn)
++{
++  if (conn != NULL) {
++    conn->must_close = 1;
++  }
++}
++ 
+ /* End of civetweb.c */
